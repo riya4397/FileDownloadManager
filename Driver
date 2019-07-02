@@ -1,0 +1,18 @@
+package Try;
+
+/**
+ *
+ * @author RIYA
+ */
+import java.io.*;
+public class Driver {
+    
+    public static void main(String rags[]){
+        String url = "http://iiti.ac.in/people/~tanimad/JavaTheCompleteReference.pdf";
+        File f = new File("C:\\Users\\RIYA\\Desktop\\TheCompleteReference.pdf");
+        
+        Download d = new Download(url, f);
+        d.run();
+    }
+    
+}
