@@ -1,0 +1,46 @@
+package Try;
+
+/**
+ *
+ * @author RIYA
+ */
+import java.util.*;
+import java.io.*;
+import java.net.*;
+public class Download{
+    String link;
+    File file;
+    
+    public Download(String url, File f){
+        this.link = url;
+        this.file = f;
+    }
+    public void run(){
+        try{
+            URL url = new URL(link);
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+            double fileSize = (double)http.getContentLengthLong();
+            BufferedInputStream in = new BufferedInputStream(http.getInputStream());
+            FileOutputStream fos = new FileOutputStream(this.file);
+            BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
+            byte[] buffer = new byte[1024];
+            double downloaded = 0.0;
+            int read = 0;
+            double percent = 0.0;
+            System.out.println("Outside while loop");
+            while((read = in.read(buffer, 0, 1024)) >= 0){
+                bout.write(buffer, 0, read);
+                downloaded += read;
+                percent = (downloaded*100)/fileSize;
+                //String str = String.format("%.4f", percent);
+                System.out.println("Downloaded percentage is " + percent);
+            }
+            in.close();
+            bout.close();
+            System.out.println("File Downloaded");
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
